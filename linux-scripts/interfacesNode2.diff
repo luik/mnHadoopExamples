@@ -1,0 +1,16 @@
+diff --git a/etc/network/interfaces b/etc/network/interfaces
+index 69b9a0f..480f16c 100644
+--- a/etc/network/interfaces
++++ b/etc/network/interfaces
+@@ -9,4 +9,10 @@ iface lo inet loopback
+
+ # The primary network interface
+ auto ens33
+-iface ens33 inet dhcp
++iface ens33 inet static
++ address 192.168.202.22
++ netmask 255.255.255.0
++ broadcast 192.168.202.255
++ gateway 192.168.202.2
++dns-nameservers 192.168.202.2
++

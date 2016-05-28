@@ -22,17 +22,35 @@ slave nodes
 192.168.202.21
 192.168.202.22
 
+to generate a rsa key pair
+>>
+ssh-keygen
+
+
 >>
 cd ~ 
 >>
+sudo apt-get install vim git openjdk-8-jdk-headless ssh
+>>
 git clone https://github.com/luik/mnHadoopExamples
 >>
-sudo apt-get install vim git openjdk-8-jdk-headless
+mkdir .ssh
+>>
+chmod 700 .ssh
+>>
+cp mnHadoopExamples/keys/key.pub ~/.ssh/authorized_keys
+>>
+chmod 600 ~/.ssh/authorized_keys
+>>
+sudo service sshd restart
 >>
 sudo patch /etc/network/interfaces ~/mnHadoopExamples/linux-scripts/interfacesMaster.diff
 sudo patch /etc/network/interfaces ~/mnHadoopExamples/linux-scripts/interfacesNode1.diff
 sudo patch /etc/network/interfaces ~/mnHadoopExamples/linux-scripts/interfacesNode2.diff
 >> 
+
+
+
 
 
 
