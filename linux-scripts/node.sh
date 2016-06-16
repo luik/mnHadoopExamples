@@ -4,16 +4,16 @@ node_address="node address wasn't set";
 gateway_address="gateway address wasn't set";
 broadcast_address="broadcast address wasn't set"
 
-while getopts ":a:" opt; do
+while getopts ":a:g:b" opt; do
 	case $opt in
 		a)
-			ip_address=$OPTART;
+			ip_address=$OPTARG;
 		;;
 		g)
-			gateway_address=$OPTART;
+			gateway_address=$OPTARG;
 		;;
 		b)
-			broadcast_address=$OPTART;
+			broadcast_address=$OPTARG;
 		;;
 	esac
 done
@@ -43,4 +43,4 @@ echo "
 +
 " | sudo patch -u -N /etc/network/interfaces -
 
-sudo service network restart
+sudo service networking restart
