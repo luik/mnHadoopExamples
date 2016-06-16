@@ -19,8 +19,7 @@ while getopts ":a:" opt; do
 done
 
 cd ~ 
-sudo apt-get install vim git openjdk-8-jdk-headless ssh
-git clone https://github.com/luik/mnHadoopExamples
+sudo apt-get install vim openjdk-8-jdk-headless ssh
 mkdir .ssh
 chmod 700 .ssh
 cp mnHadoopExamples/keys/key.pub ~/.ssh/authorized_keys
