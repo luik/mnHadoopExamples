@@ -39,7 +39,7 @@ echo "
 + netmask 255.255.255.0
 + broadcast $broadcast_address
 + gateway $gateway_address
-+dns-nameservers 192.168.202.2
++dns-nameservers $gateway_address
 +
 " | sudo patch -u -N /etc/network/interfaces -
 
