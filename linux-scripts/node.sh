@@ -2,7 +2,6 @@
 
 node_address="node address wasn't set";
 gateway_address="gateway address wasn't set";
-broadcast_address="broadcast address wasn't set"
 
 while getopts "a:g:b:" opt; do
 	case $opt in
@@ -11,9 +10,6 @@ while getopts "a:g:b:" opt; do
 		;;
 		g)
 			gateway_address=$OPTARG;
-		;;
-		b)
-			broadcast_address=$OPTARG;
 		;;
 	esac
 done
