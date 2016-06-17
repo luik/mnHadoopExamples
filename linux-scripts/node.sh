@@ -1,25 +1,43 @@
 #!/bin/bash
 
-node_address="node address wasn't set";
-gateway_address="gateway address wasn't set";
+declare -A nodesMap
 
-while getopts "a:g:b:" opt; do
+while read -r line
+do
+        read -ra values <<< "$line"
+        nodesMap[${values[0]}]=${values[1]}
+done < "nodes.conf"
+
+is_master=false
+node_name="name wasn't set"
+
+while getopts "n:" opt; do
 	case $opt in
-		a)
-			node_address=$OPTARG;
+		n)
+			node_name=${nodesMap[$OPTARG]};
 		;;
-		g)
-			gateway_address=$OPTARG;
-		;;
+		#m)
+		#	is_master=true;
+		#;;
 	esac
 done
+
+node_address=${nodesMap[$node_name]}
+gateway_address=${nodesMap["gateway"]};
+
+if [ "$node_name" == "master"]
+then
+    echo "is master"
+if
 
 cd ~ 
 sudo apt-get install vim openjdk-8-jdk-headless ssh
 mkdir .ssh
 chmod 700 .ssh
-cp mnHadoopExamples/keys/key.pub ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
+cp mnHadoopExamples/keys/key.pub .ssh/authorized_keys
+chmod 600 .ssh/authorized_keys
+cp mnHadoopExamples/keys/key .ssh/
+chmod 600 .ssh/key
 sudo service sshd restart
 
 echo "
@@ -41,4 +59,25 @@ echo "
 sudo service networking stop
 sudo ip addr flush dev ens33
 sudo service networking start
+
+HADOOP_HOME=/home/hadoop
+
+sudo useradd -b $HADOOP_HOME -d $HADOOP_HOME -p $(openssl passwd -1 'pass') hadoop
+sudo rm -r $HADOOP_HOME
+sudo mkdir $HADOOP_HOME
+sudo chown hadoop:hadoop $HADOOP_HOME
+
+cd $HADOOP_HOME
+sudo -u hadoop mkdir .ssh
+sudo -u hadoop chmod 700 .ssh
+sudo -u hadoop cp ~/mnHadoopExamples/keys/key.pub .ssh/authorized_keys
+sudo -u hadoop chmod 600 .ssh/authorized_keys
+sudo -u hadoop cp ~/mnHadoopExamples/keys/key .ssh/
+sudo -u hadoop chmod 600 .ssh/key
+
+sudo service sshd restart
+
+
+
+
 
