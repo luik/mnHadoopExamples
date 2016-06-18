@@ -14,7 +14,7 @@ node_name="name wasn't set"
 while getopts "n:" opt; do
 	case $opt in
 		n)
-			node_name=${nodesMap[$OPTARG]};
+			node_name=$OPTARG;
 		;;
 		#m)
 		#	is_master=true;
@@ -25,10 +25,10 @@ done
 node_address=${nodesMap[$node_name]}
 gateway_address=${nodesMap["gateway"]};
 
-if [ "$node_name" == "master"]
+if [ "$node_name" == "master" ]
 then
     echo "is master"
-if
+fi
 
 cd ~ 
 sudo apt-get install vim openjdk-8-jdk-headless ssh
@@ -76,8 +76,6 @@ sudo -u hadoop cp ~/mnHadoopExamples/keys/key .ssh/
 sudo -u hadoop chmod 600 .ssh/key
 
 sudo service sshd restart
-
-
 
 
 

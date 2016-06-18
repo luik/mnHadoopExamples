@@ -18,3 +18,12 @@ for key in ${!nodesMap[@]}; do
    fi
 done
 
+node_name="master"
+
+if [ "$node_name" == "master" ]
+then
+     echo "is master"
+fi
+
+
+
