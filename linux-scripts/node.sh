@@ -77,5 +77,17 @@ sudo -u hadoop chmod 600 .ssh/key
 
 sudo service sshd restart
 
+cp /etc/hosts  hosts
+for key in ${!nodesMap[@]}; do
+   if [ "$key" != "gateway" ]
+   then
+    echo ${key} ${nodesMap[${key}]} >> hosts
+   fi
+done
+
+diff -u /etc/hosts hosts hosts.diff
+sudo patch -u /etc/hosts hosts.diff
+
+
 
 
